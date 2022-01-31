@@ -1,12 +1,17 @@
 import { CharStatus } from '../../lib/statuses'
+import React from 'react'
 import classnames from 'classnames'
 
 type Props = {
+  idx?: number
   value?: string
   status?: CharStatus
+  flip?: number
+  setFlip?: (n: number[]) => void
 }
 
-export const Cell = ({ value, status }: Props) => {
+export const Cell = ({ idx, value, status, flip, setFlip }: Props) => {
+
   const classes = classnames(
     'w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded dark:text-white',
     {
@@ -19,8 +24,18 @@ export const Cell = ({ value, status }: Props) => {
       'bg-yellow-500 dark:bg-yellow-700 text-white border-yellow-500 dark:border-yellow-700':
         status === 'present',
       'cell-animation': !!value,
+      // 'animating': 1,
     }
   )
+  // const animationArray = (idx: number) => {
+  //   let arr = new Array(6).fill(0);
+  //   arr[idx] = 1;
 
-  return <div className={classes}>{value}</div>
+  //   return arr;
+  // }
+
+  // console.log(flip, idx)
+  const clearArray = [0,0,0,0,0,0];
+  return <div className={classes} onAnimationEnd={()=> {if (setFlip && typeof idx !== 'undefined') setFlip(clearArray)}} data-flip={flip}>{value}</div>
+  // onClick={()=>{if (setFlip && typeof idx !== 'undefined') setFlip(animationArray(idx))}} onAnimationEnd={()=> {if (setFlip && typeof idx !== 'undefined') setFlip(clearArray)}}
 }

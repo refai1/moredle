@@ -68,6 +68,9 @@ function App() {
 
   const [stats, setStats] = useState(() => loadStats())
 
+  const [animateRow, setAnimateRow] = useState(0);
+  const [flip, setFlip] = useState([0,0,0,0,0,0])
+
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark')
@@ -134,6 +137,9 @@ function App() {
 
     if (currentGuess.length === 6 && guesses.length < 6 && !isGameWon) {
       setGuesses([...guesses, currentGuess])
+      // console.log("good time to trigger animation?");
+      // setFlip([1,1,1,1,1,1])
+      // console.log(flip);
       setCurrentGuess('')
 
       if (winningWord) {
@@ -167,7 +173,7 @@ function App() {
           onClick={() => setIsStatsModalOpen(true)}
         />
       </div>
-      <Grid guesses={guesses} currentGuess={currentGuess} />
+      <Grid guesses={guesses} currentGuess={currentGuess} animateRow={animateRow} flip={flip} setFlip={setFlip}/>
       <Keyboard
         onChar={onChar}
         onDelete={onDelete}
