@@ -195,6 +195,7 @@ function App() {
         setGuesses([...guesses, currentGuess])
         setCurrentGuess('')
         setCurrentRowStatus(['','','','','',''])
+        setFlip([0,0,0,0,0,0])
       }, 6*delay);
 
       if (winningWord) {
