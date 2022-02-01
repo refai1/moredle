@@ -139,6 +139,7 @@ function App() {
 
     if (currentGuess.length === 6 && guesses.length < 6 && !isGameWon) {
       const statuses = getGuessStatuses(currentGuess);
+      const delay = 600;
       setFlip([1,0,0,0,0,0]);
       setTimeout(() => {
         setFlip([0,1,0,0,0,0]);
@@ -149,7 +150,7 @@ function App() {
             return ''
           }
         }))
-      }, 400);
+      }, delay);
       setTimeout(() => {
         setFlip([0,0,1,0,0,0]);
         setCurrentRowStatus(statuses.map((status, i) => {
@@ -159,7 +160,7 @@ function App() {
             return ''
           }
         }))
-      }, 800);
+      }, 2*delay);
       setTimeout(() => {
         setFlip([0,0,0,1,0,0]);
         setCurrentRowStatus(statuses.map((status, i) => {
@@ -169,7 +170,7 @@ function App() {
             return ''
           }
         }))
-      }, 1200);
+      }, 3*delay);
       setTimeout(() => {
         setFlip([0,0,0,0,1,0]);
         setCurrentRowStatus(statuses.map((status, i) => {
@@ -179,7 +180,7 @@ function App() {
             return ''
           }
         }))
-      }, 1600);
+      }, 4*delay);
       setTimeout(() => {
         setFlip([0,0,0,0,0,1])
         setCurrentRowStatus(statuses.map((status, i) => {
@@ -189,16 +190,16 @@ function App() {
             return ''
           }
         }))
-      }, 2000);
+      }, 5*delay);
       setTimeout(() => {
         setGuesses([...guesses, currentGuess])
         setCurrentGuess('')
         setCurrentRowStatus(['','','','','',''])
-      }, 2400);
+      }, 6*delay);
 
       if (winningWord) {
         setStats(addStatsForCompletedGame(stats, guesses.length))
-        return setTimeout(() => setIsGameWon(true),2400)
+        return setTimeout(() => setIsGameWon(true),6*delay)
       }
 
       if (guesses.length === 5) {
