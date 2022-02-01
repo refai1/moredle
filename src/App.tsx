@@ -149,7 +149,7 @@ function App() {
             return ''
           }
         }))
-      }, 350);
+      }, 400);
       setTimeout(() => {
         setFlip([0,0,1,0,0,0]);
         setCurrentRowStatus(statuses.map((status, i) => {
@@ -159,7 +159,7 @@ function App() {
             return ''
           }
         }))
-      }, 700);
+      }, 800);
       setTimeout(() => {
         setFlip([0,0,0,1,0,0]);
         setCurrentRowStatus(statuses.map((status, i) => {
@@ -169,7 +169,7 @@ function App() {
             return ''
           }
         }))
-      }, 1050);
+      }, 1200);
       setTimeout(() => {
         setFlip([0,0,0,0,1,0]);
         setCurrentRowStatus(statuses.map((status, i) => {
@@ -179,7 +179,7 @@ function App() {
             return ''
           }
         }))
-      }, 1400);
+      }, 1600);
       setTimeout(() => {
         setFlip([0,0,0,0,0,1])
         setCurrentRowStatus(statuses.map((status, i) => {
@@ -189,16 +189,16 @@ function App() {
             return ''
           }
         }))
-      }, 1750);
+      }, 2000);
       setTimeout(() => {
         setGuesses([...guesses, currentGuess])
         setCurrentGuess('')
         setCurrentRowStatus(['','','','','',''])
-      }, 2100);
+      }, 2400);
 
       if (winningWord) {
         setStats(addStatsForCompletedGame(stats, guesses.length))
-        return setTimeout(() => setIsGameWon(true),2100)
+        return setTimeout(() => setIsGameWon(true),2400)
       }
 
       if (guesses.length === 5) {
