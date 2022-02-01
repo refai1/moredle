@@ -25,6 +25,7 @@ import {
   loadGameStateFromLocalStorage,
   saveGameStateToLocalStorage,
 } from './lib/localStorage'
+import { getGuessStatuses } from './lib/statuses'
 
 import './App.css'
 
@@ -70,6 +71,7 @@ function App() {
 
   const [animateRow, setAnimateRow] = useState(0);
   const [flip, setFlip] = useState([0,0,0,0,0,0])
+  const [currentRowStatus, setCurrentRowStatus] = useState<any>(getGuessStatuses(''))
 
   useEffect(() => {
     if (isDarkMode) {
@@ -136,15 +138,67 @@ function App() {
     const winningWord = isWinningWord(currentGuess)
 
     if (currentGuess.length === 6 && guesses.length < 6 && !isGameWon) {
-      setGuesses([...guesses, currentGuess])
-      // console.log("good time to trigger animation?");
-      // setFlip([1,1,1,1,1,1])
-      // console.log(flip);
-      setCurrentGuess('')
+      const statuses = getGuessStatuses(currentGuess);
+      setFlip([1,0,0,0,0,0]);
+      setTimeout(() => {
+        setFlip([0,1,0,0,0,0]);
+        setCurrentRowStatus(statuses.map((status, i) => {
+          if (i <= 0){
+            return status
+          } else {
+            return ''
+          }
+        }))
+      }, 350);
+      setTimeout(() => {
+        setFlip([0,0,1,0,0,0]);
+        setCurrentRowStatus(statuses.map((status, i) => {
+          if (i <= 1){
+            return status
+          } else {
+            return ''
+          }
+        }))
+      }, 700);
+      setTimeout(() => {
+        setFlip([0,0,0,1,0,0]);
+        setCurrentRowStatus(statuses.map((status, i) => {
+          if (i <= 2){
+            return status
+          } else {
+            return ''
+          }
+        }))
+      }, 1050);
+      setTimeout(() => {
+        setFlip([0,0,0,0,1,0]);
+        setCurrentRowStatus(statuses.map((status, i) => {
+          if (i <= 3){
+            return status
+          } else {
+            return 'absent'
+          }
+        }))
+      }, 1400);
+      setTimeout(() => {
+        setFlip([0,0,0,0,0,1])
+        setCurrentRowStatus(statuses.map((status, i) => {
+          if (i <= 4){
+            return status
+          } else {
+            return 'absent'
+          }
+        }))
+      }, 1750);
+      setTimeout(() => {
+        setGuesses([...guesses, currentGuess])
+        setCurrentGuess('')
+        setCurrentRowStatus(['','','','','',''])
+      }, 2100);
 
       if (winningWord) {
         setStats(addStatsForCompletedGame(stats, guesses.length))
-        return setIsGameWon(true)
+        return setTimeout(() => setIsGameWon(true),2100)
       }
 
       if (guesses.length === 5) {
@@ -173,7 +227,7 @@ function App() {
           onClick={() => setIsStatsModalOpen(true)}
         />
       </div>
-      <Grid guesses={guesses} currentGuess={currentGuess} animateRow={animateRow} flip={flip} setFlip={setFlip}/>
+      <Grid guesses={guesses} currentGuess={currentGuess} animateRow={animateRow} flip={flip} currentRowStatus={currentRowStatus} setFlip={setFlip}/>
       <Keyboard
         onChar={onChar}
         onDelete={onDelete}

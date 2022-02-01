@@ -5,7 +5,7 @@ import classnames from 'classnames'
 type Props = {
   idx?: number
   value?: string
-  status?: CharStatus
+  status?: any
   flip?: number
   setFlip?: (n: number[]) => void
 }
@@ -24,7 +24,7 @@ export const Cell = ({ idx, value, status, flip, setFlip }: Props) => {
       'bg-yellow-500 dark:bg-yellow-700 text-white border-yellow-500 dark:border-yellow-700':
         status === 'present',
       'cell-animation': !!value,
-      // 'animating': 1,
+      'animating': 1,
     }
   )
   // const animationArray = (idx: number) => {
@@ -36,6 +36,6 @@ export const Cell = ({ idx, value, status, flip, setFlip }: Props) => {
 
   // console.log(flip, idx)
   const clearArray = [0,0,0,0,0,0];
-  return <div className={classes} onAnimationEnd={()=> {if (setFlip && typeof idx !== 'undefined') setFlip(clearArray)}} data-flip={flip}>{value}</div>
+  return <div className={classes} data-flip={flip}>{value}</div>
   // onClick={()=>{if (setFlip && typeof idx !== 'undefined') setFlip(animationArray(idx))}} onAnimationEnd={()=> {if (setFlip && typeof idx !== 'undefined') setFlip(clearArray)}}
 }
