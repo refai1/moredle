@@ -176,7 +176,7 @@ function App() {
           if (i <= 3){
             return status
           } else {
-            return 'absent'
+            return ''
           }
         }))
       }, 1400);
@@ -186,7 +186,7 @@ function App() {
           if (i <= 4){
             return status
           } else {
-            return 'absent'
+            return ''
           }
         }))
       }, 1750);
