@@ -16,6 +16,17 @@ export const shareStatus = (guesses: string[], lost: boolean) => {
 }
 
 export const generateEmojiGrid = (guesses: string[]) => {
+  const prefersDarkMode = window.matchMedia(
+    '(prefers-color-scheme: dark)'
+  ).matches
+
+  const isDark = localStorage.getItem('theme')
+    ? localStorage.getItem('theme') === 'dark'
+    : prefersDarkMode
+    ? true
+    : false
+
+  
   return guesses
     .map((guess) => {
       const status = getGuessStatuses(guess)
@@ -28,7 +39,7 @@ export const generateEmojiGrid = (guesses: string[]) => {
             case 'present':
               return '🟨'
             default:
-              return '⬜'
+              return isDark ? '⬛' : '⬜' 
           }
         })
         .join('')
